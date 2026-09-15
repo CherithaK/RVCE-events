@@ -43,21 +43,6 @@ function StudentIdentity({ student }: { student: StudentLeaderboardRecord }) {
   );
 }
 
-function CategoryTags({ student }: { student: StudentLeaderboardRecord }) {
-  return (
-    <div className="flex flex-wrap gap-1.5">
-      {Object.entries(student.categories).map(([category, points]) => (
-        <span
-          key={category}
-          className="rounded-full border border-[var(--border-blush)] bg-[var(--surface-blush-subtle)] px-2 py-1 text-[0.7rem] text-[var(--text-blush-muted)]"
-        >
-          {category}: {points}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 export function LeaderboardTable({ students, className }: LeaderboardTableProps) {
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState<"All" | LeaderboardDepartment>("All");
@@ -155,8 +140,6 @@ export function LeaderboardTable({ students, className }: LeaderboardTableProps)
               <th className="px-4 py-3">Student</th>
               <th className="px-4 py-3">Department</th>
               <th className="px-4 py-3">Points</th>
-              <th className="px-4 py-3">Events</th>
-              <th className="px-4 py-3">Category Breakdown</th>
             </tr>
           </thead>
           <tbody>
@@ -182,10 +165,6 @@ export function LeaderboardTable({ students, className }: LeaderboardTableProps)
                     {student.points} Pts
                   </div>
                 </td>
-                <td className="px-4 py-4 text-[var(--text-blush-muted)]">{student.events}</td>
-                <td className="px-4 py-4">
-                  <CategoryTags student={student} />
-                </td>
               </tr>
             ))}
           </tbody>
@@ -201,7 +180,7 @@ export function LeaderboardTable({ students, className }: LeaderboardTableProps)
                 #{student.rank}
               </span>
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-sm">
+            <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
               <div>
                 <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[var(--text-blush-muted)]">Dept</p>
                 <p className="mt-1 font-bold">{student.department}</p>
@@ -210,13 +189,6 @@ export function LeaderboardTable({ students, className }: LeaderboardTableProps)
                 <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[var(--text-blush-muted)]">Points</p>
                 <p className="mt-1 font-bold">{student.points}</p>
               </div>
-              <div>
-                <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[var(--text-blush-muted)]">Events</p>
-                <p className="mt-1 font-bold">{student.events}</p>
-              </div>
-            </div>
-            <div className="mt-4">
-              <CategoryTags student={student} />
             </div>
           </article>
         ))}
